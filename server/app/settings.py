@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    pass
+    DATABASE_URL: str
 
 
 settings = Settings()
