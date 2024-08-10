@@ -1,9 +1,12 @@
+from fastapi_filter import FilterDepends
+
 from .. import services
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..auth.dependencies import current_active_user
 from ..auth.models import User
+from ..filters import ArticleFilter
 from ..schemas import (
     ArticleBaseRead, ArticleDetailRead, ArticleCreate,
     ArticleUpdate
@@ -19,9 +22,11 @@ router.include_router(review_router, prefix='/{article_id}', tags=['reviews'])
 
 
 @router.get('/', response_model=list[ArticleBaseRead])
-async def list_articles(db: AsyncSession = Depends(get_async_session)):
+async def list_articles(
+        article_filter: ArticleFilter = FilterDepends(ArticleFilter),
+        db: AsyncSession = Depends(get_async_session)):
     """Эндпоинт для просмотра списка статей"""
-    article = await services.list_articles(db)
+    article = await services.list_articles(db, article_filter)
     return article
 
 

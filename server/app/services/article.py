@@ -4,6 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
+from ..filters import ArticleFilter
 from ..schemas import ArticleCreate, ArticleUpdate
 from ..models import Article, Comment, Review
 
@@ -40,10 +41,14 @@ async def get_article_with_reviews_by_id(
     return article
 
 
-async def list_articles(db: AsyncSession) -> Sequence[Article]:
+async def list_articles(
+        db: AsyncSession,
+        article_filter: ArticleFilter) -> Sequence[Article]:
     """Получение списка статей"""
     articles = await db.scalars(
-        select(Article).options(joinedload(Article.category))
+        article_filter.filter(
+            select(Article).options(joinedload(Article.category))
+        )
     )
     return articles.all()
 
