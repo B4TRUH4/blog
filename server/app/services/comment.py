@@ -12,18 +12,18 @@ async def get_comment_by_id(
         comment_id: int,
         article_id: int) -> Comment:
     """Получение комментария по id комментария и id статьи"""
-    comment = await db.execute(
+    comment = await db.scalar(
         select(Comment).filter_by(article_id=article_id, id=comment_id)
     )
-    return comment.scalar()
+    return comment
 
 
 async def list_comments(db: AsyncSession, article_id: int) -> Sequence[Comment]:
     """Получение списка комментариев"""
-    comments = await db.execute(
+    comments = await db.scalars(
         select(Comment).filter_by(article_id=article_id)
     )
-    return comments.scalars().all()
+    return comments
 
 
 async def create_comment(

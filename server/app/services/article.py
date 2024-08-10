@@ -30,10 +30,10 @@ async def get_article_with_comments_by_id(
 
 async def list_articles(db: AsyncSession) -> Sequence[Article]:
     """Получение списка статей"""
-    articles = await db.execute(
+    articles = await db.scalars(
         select(Article).options(joinedload(Article.category))
     )
-    return articles.scalars().all()
+    return articles.all()
 
 
 async def create_article(

@@ -9,8 +9,8 @@ from ..models import Category
 
 async def list_categories(db: AsyncSession) -> Sequence[Category]:
     """Получение списка категорий"""
-    categories = await db.execute(select(Category))
-    return categories.scalars().all()
+    categories = await db.scalars(select(Category))
+    return categories.all()
 
 
 async def get_category_by_id(
