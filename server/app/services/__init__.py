@@ -16,3 +16,9 @@ from .comment import (
     create_comment,
     update_comment,
     delete_comment)
+from .report import (
+    list_reports,
+    get_report_by_id,
+    create_report,
+    get_report_with_details,
+    solve_report)

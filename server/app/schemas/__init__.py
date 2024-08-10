@@ -5,3 +5,4 @@ from .article import (
     ArticleUpdate)
 from .category import CategoryBase, CategoryRead
 from .comment import CommentRead, CommentCreate, CommentUpdate
+from .report import ReportCreate, ReportBaseRead, ReportDetailRead
