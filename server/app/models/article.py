@@ -25,3 +25,4 @@ class Article(Base):
         cascade="all, delete-orphan"
     )
     reports = relationship("Report", back_populates="article")
+    reviews = relationship("Review", back_populates="article")

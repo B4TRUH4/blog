@@ -13,3 +13,4 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     articles = relationship("Article", back_populates="author")
     comments = relationship("Comment", back_populates="author")
     reports = relationship("Report", back_populates="author")
+    reviews = relationship("Review", back_populates="author")

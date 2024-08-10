@@ -12,6 +12,7 @@ router = APIRouter(prefix='/categories', tags=['categories'])
 
 @router.get('/', response_model=list[CategoryRead])
 async def list_categories(db: AsyncSession = Depends(get_async_session)):
+    """Эндпоинт для просмотра списка категорий"""
     result = await services.list_categories(db)
     return result
 
@@ -28,6 +29,7 @@ async def create_category(
         category: CategoryBase,
         _: User = Depends(current_active_superuser),
         db: AsyncSession = Depends(get_async_session)):
+    """Эндпоинт для создания категории"""
     result = await services.create_category(db, category)
     return result
 
@@ -45,6 +47,7 @@ async def delete_category(
         category_id: int,
         _: User = Depends(current_active_superuser),
         db: AsyncSession = Depends(get_async_session)):
+    """Эндпоинт для просмотра категории"""
     category = await services.get_category_by_id(db, category_id)
     if not category:
         raise HTTPException(

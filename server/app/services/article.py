@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
 from ..schemas import ArticleCreate, ArticleUpdate
-from ..models import Article
+from ..models import Article, Comment, Review
 
 
 async def get_article_by_id(
@@ -23,7 +23,19 @@ async def get_article_with_comments_by_id(
     article = await db.get(
         Article,
         article_id,
-        options=[joinedload(Article.comments)]
+        options=[joinedload(Article.comments).joinedload(Comment.author)]
+    )
+    return article
+
+
+async def get_article_with_reviews_by_id(
+        db: AsyncSession,
+        article_id: int) -> Article | None:
+    """Получение статьи по id с отзывами"""
+    article = await db.get(
+        Article,
+        article_id,
+        options=[joinedload(Article.reviews).joinedload(Review.author)]
     )
     return article
 

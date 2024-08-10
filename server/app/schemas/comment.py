@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+from ..auth.schemas import UserRead
+
 
 class CommentBase(BaseModel):
     content: str
@@ -7,7 +9,7 @@ class CommentBase(BaseModel):
 
 class CommentRead(CommentBase):
     id: int
-    author_id: int
+    author: UserRead
 
 
 class CommentCreate(CommentBase):

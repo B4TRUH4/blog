@@ -10,14 +10,17 @@ from ..schemas import (
 )
 from ..dependencies import get_async_session
 from .comment import router as comment_router
+from .review import router as review_router
 
 router = APIRouter(prefix='/articles', tags=['articles'])
 
 router.include_router(comment_router, prefix='/{article_id}', tags=['comments'])
+router.include_router(review_router, prefix='/{article_id}', tags=['reviews'])
 
 
 @router.get('/', response_model=list[ArticleBaseRead])
 async def list_articles(db: AsyncSession = Depends(get_async_session)):
+    """Эндпоинт для просмотра списка статей"""
     article = await services.list_articles(db)
     return article
 
@@ -37,6 +40,7 @@ async def create_article(
         article: ArticleCreate,
         user: User = Depends(current_active_user),
         db: AsyncSession = Depends(get_async_session)):
+    """Эндпоинт для создания статьи"""
     category = await services.get_category_by_id(db, article.category_id)
     if not category:
         raise HTTPException(
@@ -53,6 +57,7 @@ async def create_article(
 async def get_article(
         article_id: int,
         db: AsyncSession = Depends(get_async_session)):
+    """Эндпоинт для просмотра статьи"""
     article = await services.get_article_by_id(db, article_id)
     if not article:
         raise HTTPException(
@@ -75,6 +80,7 @@ async def delete_article(
         article_id: int,
         user: User = Depends(current_active_user),
         db: AsyncSession = Depends(get_async_session)):
+    """Эндпоинт для удаления статьи"""
     article = await services.get_article_by_id(db, article_id)
     if not article:
         raise HTTPException(
@@ -99,6 +105,7 @@ async def update_article(
         updated_article: ArticleUpdate,
         user: User = Depends(current_active_user),
         db: AsyncSession = Depends(get_async_session)):
+    """Эндпоинт для обновления статьи"""
     article = await services.get_article_by_id(db, article_id)
     if not article:
         raise HTTPException(
