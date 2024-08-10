@@ -1,5 +1,6 @@
 from typing import Sequence
 
+from fastapi_pagination.ext.sqlalchemy import paginate
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
@@ -45,12 +46,14 @@ async def list_articles(
         db: AsyncSession,
         article_filter: ArticleFilter) -> Sequence[Article]:
     """Получение списка статей"""
-    articles = await db.scalars(
+    articles = await paginate(
+        db,
         article_filter.filter(
             select(Article).options(joinedload(Article.category))
         )
     )
-    return articles.all()
+
+    return articles
 
 
 async def create_article(

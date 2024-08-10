@@ -1,4 +1,5 @@
 from fastapi_filter import FilterDepends
+from fastapi_pagination import Page
 
 from .. import services
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -21,7 +22,7 @@ router.include_router(comment_router, prefix='/{article_id}', tags=['comments'])
 router.include_router(review_router, prefix='/{article_id}', tags=['reviews'])
 
 
-@router.get('/', response_model=list[ArticleBaseRead])
+@router.get('/', response_model=Page[ArticleBaseRead])
 async def list_articles(
         article_filter: ArticleFilter = FilterDepends(ArticleFilter),
         db: AsyncSession = Depends(get_async_session)):
