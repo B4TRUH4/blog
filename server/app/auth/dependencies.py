@@ -7,10 +7,10 @@ from fastapi_users.authentication import (
 from fastapi_users.db import SQLAlchemyUserDatabase
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.dependencies import get_async_session
+from ..dependencies import get_async_session
 from .managers import UserManager
 from .models import User
-from app.settings import settings
+from ..settings import settings
 
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):

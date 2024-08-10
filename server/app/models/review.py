@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, ForeignKey, Text, Boolean
 from sqlalchemy.orm import relationship
 
-from app.models import Base
+from ..models import Base
 
 
 class Review(Base):

@@ -2,7 +2,7 @@ from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy import Integer, Column
 from sqlalchemy.orm import relationship
 
-from app.models.base import Base
+from ..models.base import Base
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):

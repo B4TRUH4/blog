@@ -2,8 +2,8 @@ from .. import services
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.auth.dependencies import current_active_user
-from app.auth.models import User
+from ..auth.dependencies import current_active_user
+from ..auth.models import User
 from ..schemas import (
     ArticleBaseRead, ArticleDetailRead, ArticleCreate,
     ArticleUpdate

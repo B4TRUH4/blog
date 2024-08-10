@@ -1,7 +1,7 @@
 from fastapi_users import BaseUserManager, IntegerIDMixin
 
 from .models import User
-from app.settings import settings
+from ..settings import settings
 
 
 class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
