@@ -16,6 +16,7 @@ passlib = "^1.7.4"
 fastapi-users = {extras = ["sqlalchemy"], version = "^13.0.0"}
 fastapi-filter = {extras = ["sqlalchemy"], version = "^2.0.0"}
 fastapi-pagination = "^0.12.26"
+aiohttp = "^3.10.2"
 
 
 [build-system]

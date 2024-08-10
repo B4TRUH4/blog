@@ -34,7 +34,7 @@ async def list_articles(
 @router.post(
     '/',
     status_code=status.HTTP_201_CREATED,
-    response_model=ArticleBaseRead,
+    response_model=ArticleDetailRead,
     responses={
         status.HTTP_404_NOT_FOUND: {
             "description": "Category with id {id} does not exist"
